@@ -1,0 +1,145 @@
+.inventory-table {
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(10px);
+  border-radius: 15px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.table-header {
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  padding: 20px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.nav-item a:hover {
+  background-color: #f8f9fa;
+}
+
+.table-container {
+  padding: 20px;
+}
+
+.custom-table {
+  margin-bottom: 0;
+}
+
+.custom-table thead th {
+  border-bottom: 2px solid #dee2e6;
+  font-weight: 600;
+  color: #495057;
+  text-transform: uppercase;
+  font-size: 0.875rem;
+  letter-spacing: 0.5px;
+}
+
+.custom-table tbody tr:hover {
+  background-color: rgba(0, 0, 0, 0.02);
+  transition: background-color 0.2s ease;
+}
+
+.custom-table td {
+  vertical-align: middle;
+  color: #6c757d;
+}
+
+/* Custom Button Styles */
+.btn-custom {
+  background-color: #078080;
+  border-color: #078080;
+  color: #ffffff;
+  transition: all 0.3s ease;
+}
+
+.btn-custom:hover {
+  background-color: #056666;
+  border-color: #056666;
+  color: #ffffff;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(7, 128, 128, 0.2);
+}
+
+.btn-outline-custom {
+  color: #078080;
+  border-color: #078080;
+  background-color: transparent;
+}
+
+.btn-outline-custom:hover {
+  background-color: #078080;
+  color: #ffffff;
+  border-color: #078080;
+}
+
+/* \fiter */
+.input-group-text {
+  background-color: #078080;
+  color: white;
+  border: 1px solid #078080;
+}
+
+input.form-control {
+  border: 1px solid #ced4da;
+}
+
+input.form-control:focus {
+  border-color: #078080;
+  box-shadow: 0 0 0 0.2rem rgba(7, 128, 128, 0.25);
+}
+
+/* update icons */
+.btn-group .btn {
+  padding: 0.25rem 0.5rem;
+}
+
+.btn-group .fas {
+  font-size: 0.875rem;
+}
+
+.card-header {
+  background-color: #9d2a1b;
+  color: white;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 1rem;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+}
+
+.alert-message {
+  margin-bottom: 0.5rem;
+}
+
+.alert-message:last-child {
+  margin-bottom: 0;
+}
+
+.alert-message i {
+  margin-right: 0.5rem;
+}
+
+.btn-custom {
+  background-color: #078080;
+  color: white;
+  transition: all 0.3s ease;
+}
+
+.btn-custom:hover {
+  background-color: #056666;
+  transform: translateY(-2px);
+}
+
+/* filter section icons/buttons */
+.filter-section .btn-custom,
+.filter-section .btn-custom:hover,
+.filter-section .btn-outline-custom,
+.filter-section .btn-outline-custom:hover,
+.filter-section .input-group-text {
+  background-color: #8c7851 !important;
+  border-color: #8c7851 !important;
+  color: #fff !important;
+}
+
+.filter-section .btn-outline-custom {
+  background-color: transparent !important;
+  color: #8c7851 !important;
+}

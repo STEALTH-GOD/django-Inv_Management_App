@@ -1,0 +1,95 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block title %}Stock Details{% endblock title %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="inventory-table mb-4">
+        <div class="table-header d-flex justify-content-between align-items-center mb-3">
+            <h2 class="h4 mb-0">Stock Details - {{ stock.item_name }}</h2>
+            <a href="{% url 'list_items' %}" class="btn btn-outline-secondary btn-sm">
+                <i class="fas fa-arrow-left"></i> Back to List
+            </a>
+        </div>
+
+        <div class="card shadow-sm">
+            <div class="card-body row">
+                <!-- Details on the left -->
+                <div class="col-md-8">
+                    <div class="mb-3 d-flex gap-2">
+                        <a href="{% url 'issue_items' stock.id %}" class="btn btn-danger">
+                            <i class="fas fa-minus-circle"></i> ISSUE THIS ITEM
+                        </a>
+                        <a href="{% url 'receive_items' stock.id %}" class="btn btn-primary">
+                            <i class="fas fa-plus-circle"></i> RECEIVE THIS ITEM
+                        </a>
+                        <a href="{% url 'reorder_level' stock.id %}"
+                        class="btn btn-danger">REORDER
+                        </a>
+                    </div>
+
+                    <table class="table table-bordered table-striped mb-0"> 
+                        <tbody>
+                            <tr>
+                                <th scope="row">Item Name</th>
+                                <td>{{ stock.item_name }}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Quantity in Store</th>
+                                <td>{{ stock.quantity }}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Last Updated</th>
+                                <td>{{ stock.last_updated }}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Category</th>
+                                <td>{{ stock.category }}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Brand</th>
+                                <td>{{ stock.brand }}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Price</th>
+                                <td>Rs. {{ stock.price }}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Supplier</th>
+                                <td>{{ stock.receive_from }}, {{ stock.phone_number }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Image on the right -->
+                <div class="col-md-4 mt-5 text-center">
+                    {% if stock.image %}
+                        <img src="{{ stock.image.url }}" alt="{{ stock.item_name }}"
+                             class="img-fluid rounded shadow-sm mb-2"
+                             style="cursor:pointer; max-height: 250px;"
+                             data-bs-toggle="modal" data-bs-target="#imageModal">
+                    {% else %}
+                        <p class="text-muted">No image uploaded</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Image Modal -->
+<div class="modal fade" id="imageModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content bg-transparent border-0">
+            <div class="modal-body text-center">
+                {% if stock.image %}
+                    <img src="{{ stock.image.url }}" alt="{{ stock.item_name }}"
+                         class="img-fluid rounded shadow">
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

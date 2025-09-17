@@ -1,0 +1,68 @@
+{% load static %}
+
+<footer class="footer mt-auto py-4" style="background: #f5f7fa; border-top: 1px solid #e5e7eb;">
+  <div class="container">
+    <div class="row">
+      <!-- Logo and Brand -->
+      <div class="col-md-3 mb-4 mb-md-0">
+        <div class="d-flex align-items-center mb-2">
+          <img src="{% static 'img/logo.png' %}" alt="Logo" style="height: 32px; margin-right: 8px;">
+          <span style="font-weight:700; font-size:1.4rem; color:#232b39;">Stock<span style="color:#078080;">Mate</span></span>
+        </div>
+        <p class="text-muted small">Your complete inventory management solution</p>
+      </div>
+      
+      <!-- Quick Links -->
+      <div class="col-md-3 mb-4 mb-md-0">
+        <h6 class="fw-bold mb-3" style="color:#232b39;">Quick Links</h6>
+        <ul class="list-unstyled">
+          <li class="mb-2"><a href="{% url 'home' %}" class="text-decoration-none" style="color:#495057;">Home</a></li>
+          <li class="mb-2"><a href="{% url 'add_items' %}" class="text-decoration-none" style="color:#495057;">Add Items</a></li>
+          <li class="mb-2"><a href="{% url 'list_items' %}" class="text-decoration-none" style="color:#495057;">List Items</a></li>
+          <li><a href="/list_history" class="text-decoration-none" style="color:#495057;">List History</a></li>
+        </ul>
+      </div>
+      
+      <!-- Contact Info -->
+      <div class="col-md-3 mb-4 mb-md-0">
+        <h6 class="fw-bold mb-3" style="color:#232b39;">Contact Us</h6>
+        <p class="mb-1 text-muted small"><i class="fas fa-envelope me-2" style="color:#078080;"></i>support@gmail.com</p>
+        <p class="mb-1 text-muted small"><i class="fas fa-phone-alt me-2" style="color:#078080;"></i>01 555-5554444</p>
+        <p class="mb-1 text-muted small"><i class="fas fa-map-marker-alt me-2" style="color:#078080;"></i>Patan, Lalitpur</p>
+      </div>
+      
+      <!-- Social Media -->
+      <div class="col-md-3">
+        <h6 class="fw-bold mb-3" style="color:#232b39;">Follow Us</h6>
+        <div class="d-flex gap-3">
+          <a href="https://facebook.com" class="text-decoration-none" style="color:#078080; font-size: 1.2rem;"><i class="fab fa-facebook-square"></i></a>
+          <a href="https://twitter.com" class="text-decoration-none" style="color:#078080; font-size: 1.2rem;"><i class="fab fa-twitter-square"></i></a>
+          <a href="https://instagram.com" class="text-decoration-none" style="color:#078080; font-size: 1.2rem;"><i class="fab fa-instagram-square"></i></a>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Copyright -->
+    <div class="row mt-4 pt-3 border-top">
+      <div class="col-12 text-center">
+        <p class="text-muted small mb-0">© 2025 StockMate. All rights reserved.</p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<style>
+  body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+  
+  main {
+    flex: 1;
+  }
+  
+  .footer {
+    flex-shrink: 0;
+  }
+</style>

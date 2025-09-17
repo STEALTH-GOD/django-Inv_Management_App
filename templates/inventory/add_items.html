@@ -1,0 +1,128 @@
+{% extends 'base/base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block title %}Add New Product{% endblock title %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="card shadow">
+        <div class="card-header">
+            <h3 class="mb-0">Add New Product</h3>
+        </div>
+        <div class="card-body">
+            {% if form.errors %}
+                <!-- Error handling code -->
+            {% endif %}
+
+            <form method="POST" enctype="multipart/form-data" novalidate id="productForm">
+                {% csrf_token %}
+                
+                <!-- Add a status div for predictions -->
+                <div id="prediction-status" class="mb-3"></div>
+                
+                <div class="row">
+                    {% for field in form %}
+                        {% if field.name == "image" %}
+                            <div class="col-md-12 mb-3">
+                                <label class="form-label fw-bold">Product Image</label>
+                                {{ field|as_crispy_field }}
+                                <small class="text-muted">Upload an image to auto-detect category.</small>
+                            </div>
+                        {% elif field.name != "export_to_CSV" %}
+                            <div class="col-md-6 mb-3">
+                                {{ field|as_crispy_field }}
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+                <div class="d-flex justify-content-end align-items-center">
+                    <div class="d-flex gap-2">
+                        <button type="submit" class="btn btn-custom">
+                            <i class="fas fa-plus"></i> Add Product
+                        </button>
+                        <button type="reset" class="btn btn-secondary">
+                            <i class="fas fa-redo"></i> Reset
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Get the image input and category input elements
+        const imageInput = document.getElementById('{{ form.image.id_for_label }}');
+        const categoryInput = document.getElementById('{{ form.category.id_for_label }}');
+        const statusDiv = document.getElementById('prediction-status');
+        
+        // Listen for changes to the image input
+        imageInput.addEventListener('change', function() {
+            if (!this.files || !this.files[0]) return;
+            
+            // Display loading message
+            statusDiv.innerHTML = '<div class="alert alert-info">Analyzing image...</div>';
+            
+            // Create FormData to send the image
+            const formData = new FormData();
+            formData.append('image', this.files[0]);
+            
+            // Get CSRF token from the form
+            const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+            
+            console.log("Sending prediction request...");
+            
+            // Send the image to the prediction endpoint
+            fetch('/ml/predict/', {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-CSRFToken': csrftoken
+                },
+                credentials: 'same-origin'
+            })
+            .then(response => {
+                console.log("Response status:", response.status);
+                if (!response.ok) {
+                    return response.text().then(text => {
+                        throw new Error(`HTTP error! status: ${response.status}, message: ${text}`);
+                    });
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log("Prediction result:", data);
+                
+                // Set the category field value
+                if (data.category) {
+                    categoryInput.value = data.category;
+                    
+                    // Show success message
+                    if (data.confidence) {
+                        statusDiv.innerHTML = `<div class="alert alert-success">
+                            Predicted category: <strong>${data.category}</strong>
+                            (${(data.confidence * 100).toFixed(2)}% confidence)
+                        </div>`;
+                    } else {
+                        statusDiv.innerHTML = `<div class="alert alert-success">
+                            Predicted category: <strong>${data.category}</strong>
+                        </div>`;
+                    }
+                } else {
+                    statusDiv.innerHTML = `<div class="alert alert-warning">
+                        Could not predict category from image.
+                    </div>`;
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                statusDiv.innerHTML = `<div class="alert alert-danger">
+                    Error predicting category: ${error.message}
+                </div>`;
+            });
+        });
+    });
+</script>
+{% endblock content %}

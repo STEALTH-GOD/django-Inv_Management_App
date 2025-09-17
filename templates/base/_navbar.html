@@ -1,0 +1,50 @@
+{% load static %}
+
+<nav class="navbar navbar-expand-lg" style="background: #f5f7fa; border-bottom: 1px solid #e5e7eb;">
+  <div class="container-fluid">
+    <!-- Logo and Brand -->
+    <a class="navbar-brand d-flex align-items-center" href="{% url 'home' %}" style="font-weight:700; font-size:1.7rem; color:#232b39; margin-left: 6rem;">
+      <img src="{% static 'img/logo.png' %}" alt="Logo" style="height: 38px; margin-right: 8px;">
+      Stock<span style="color:#078080;">Mate</span>
+    </a>
+    <!-- Hamburger for mobile -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <!-- Nav links -->
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav mx-auto" style="gap: 1.5rem;">
+        <li class="nav-item">
+          <a class="nav-link fw-semibold" href="{% url 'home' %}" style="color:#232b39;">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link fw-semibold" href="{% url 'add_items' %}" style="color:#232b39;">Add Items</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link fw-semibold" href="{% url 'list_items' %}" style="color:#232b39;">List Items</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link fw-semibold" href="/list_history" style="color:#232b39;">List History</a>
+        </li>
+      </ul>
+      <ul class="navbar-nav ms-auto" style="gap: 0.5rem;">
+        {% if user.is_authenticated %}
+        <li class="nav-item d-flex align-items-center">
+          <span class="nav-link" style="color:#232b39;">{{ user.username }}</span>
+        </li>
+        <li class="nav-item">
+          <a class="btn btn-primary" href="{% url 'logout' %}" style="background:#078080; border:none; font-weight:600; border-radius: 8px; padding: 0.4rem 1.2rem;">Logout</a>
+        </li>
+        {% else %}
+        <li class="nav-item">
+          <a class="btn btn-outline-primary" href="{% url 'login' %}" style="border-radius: 8px; padding: 0.4rem 1.2rem; border-color:#078080; color:#078080; font-weight:600;">Login</a>
+        </li>
+        <li class="nav-item">
+          <a class="btn btn-primary" href="{% url 'register' %}" style="background:#078080; border:none; font-weight:600; border-radius: 8px; padding: 0.4rem 1.2rem;">Register</a>
+        </li>
+        {% endif %}
+      </ul>
+    </div>
+  </div>
+</nav>

@@ -1,0 +1,70 @@
+
+{% extends 'base/base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block title %}{{ title }}{% endblock title %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-sm">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h2 class="h4 mb-0">{{ title }}</h2>
+                    <a href="{% url 'stock_details' queryset.id %}" class="btn btn-outline-secondary btn-sm">
+                        <i class="fas fa-arrow-left"></i> Back to Details
+                    </a>
+                </div>
+                <div class="card-body">
+                    <form method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        
+                        {% if is_issue_form %}
+                            <div class="alert alert-info">
+                                Current quantity: {{ queryset.quantity }}
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="id_issue_quantity"></label>
+                                {{ form.issue_quantity|as_crispy_field }}
+                            </div>
+                        {% elif is_receive_form %}
+                            <div class="alert alert-info">
+                                Current quantity: {{ queryset.quantity }}
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="id_receive_quantity"></label>
+                                {{ form.receive_quantity|as_crispy_field }}
+                            </div>
+                            <div class="form-gropup mb-3">
+                                <label for="id_receive_form"><b>Supplier</b></label>
+                                {{ form.receive_from|as_crispy_field }}
+                            </div>
+                        {% elif is_reorder_form %}
+                            <div class="alert alert-info">
+                                Current reorder level: {{ queryset.reorder_level }}
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="id_reorder_level"></label>
+                                {{ form.reorder_level|as_crispy_field }}
+                            </div>
+                        {% endif %}
+                        
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary">
+                                {% if is_issue_form %}
+                                    <i class="fas fa-minus-circle"></i> Issue Items
+                                {% elif is_receive_form %}
+                                    <i class="fas fa-plus-circle"></i> Receive Items
+                                {% elif is_reorder_form %}
+                                    <i class="fas fa-sync-alt"></i> Change Reorder Level
+                                {% endif %}
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
